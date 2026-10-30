@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fouquet Terrain – Hub</title>
+<meta name="theme-color" content="#1d3557">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<style>
+:root{--bg:#f4f6f9;--cd:#fff;--tx:#1b2430;--mu:#66707f;--ac:#1d3557;--bd:#d8dee8;--ok:#2f7d4f;box-sizing:border-box}
+@media (prefers-color-scheme:dark){:root{--bg:#12161c;--cd:#1b222c;--tx:#e8ecf2;--mu:#98a3b3;--ac:#8fb0e0;--bd:#2c3644;--ok:#6cc08b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+header{background:#fff;border-bottom:4px solid #1d3557;padding:14px 16px;display:flex;align-items:center;gap:14px}
+header img{height:64px;width:auto}
+header h1{font-size:20px;margin:0;color:#1d3557}header p{margin:2px 0 0;font-size:13px;color:#66707f}
+main{max-width:860px;margin:0 auto;padding:16px}
+h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin:20px 0 8px}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{display:block;background:var(--cd);border:1px solid var(--bd);border-left:6px solid var(--ac);border-radius:10px;padding:14px;color:inherit;text-decoration:none}
+a.card:active,a.card:hover{border-color:var(--ac);box-shadow:0 2px 10px #0002}
+.card .i{font-size:28px}.card h3{margin:6px 0 4px;font-size:17px}.card p{margin:0;font-size:14px;color:var(--mu)}
+.card .s{margin-top:10px;font-size:12px;font-weight:700;color:var(--ok)}
+.card.off{opacity:.6;border-left-color:var(--bd);cursor:default}.card.off .s{color:var(--mu)}
+.info{background:var(--cd);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--mu)}
+button{font:inherit;background:var(--ac);color:#fff;border:0;border-radius:8px;padding:10px 14px;font-weight:600;cursor:pointer;margin-top:8px}
+@media (prefers-color-scheme:dark){button{color:#12161c}}
+footer{max-width:860px;margin:0 auto;padding:8px 16px 28px;font-size:12px;color:var(--mu)}
+</style></head><body>
+<header><img src="assets/logo.jpg" alt="Fouquet Conseils Environnement"><div><h1>Hub de terrain</h1><p>Fouquet Conseils Environnement</p></div></header>
+<main>
+  <h2>Modules</h2>
+  <div class="g" id="mods"></div>
+  <h2>Utilisation</h2>
+  <div class="info">
+    Les données sont enregistrées <b>sur cet appareil uniquement</b> (navigateur). Exportez régulièrement une sauvegarde JSON depuis chaque module.
+    <div id="inst" hidden><button id="ib">Installer sur l’écran d’accueil</button></div>
+    <div id="ios" hidden style="margin-top:8px">iPhone / iPad : bouton Partager, puis « Sur l’écran d’accueil ».</div>
+  </div>
+</main>
+<footer id="ft">Fouquet Terrain</footer>
+<script>
+/* Pour ajouter un module : un objet dans MODULES (+ voir README, section « Ajouter un module »). */
+const MODULES=[
+ {titre:'Sondages de sol',icone:'🪨',desc:'Fiches de prélèvement, lithologie, échantillons et codes-barres, photos, GPS, cartes et fiches imprimables.',url:'sol/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('rs1'));return d?`${d.p.length} projet(s) · ${d.s.length} sondage(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
+ {titre:'Eaux',icone:'💧',desc:'Prélèvements d’eaux souterraines et superficielles.',etat:'soon'},
+ {titre:'Sédiments',icone:'🌊',desc:'Fiches de prélèvement de sédiments.',etat:'soon'},
+ {titre:'Fiche de visite',icone:'📋',desc:'Visite de site : observations, installations, sources potentielles.',etat:'soon'},
+ {titre:'Analyse des risques',icone:'⚠️',desc:'Schéma conceptuel et analyse des risques.',etat:'soon'}
+];
+document.getElementById('mods').innerHTML=MODULES.map(m=>{
+  const on=m.etat==='ok',st=on?(m.stats?m.stats():'Disponible'):'À venir';
+  return `<${on?`a href="${m.url}"`:'div'} class="card${on?'':' off'}"><div class="i">${m.icone}</div><h3>${m.titre}</h3><p>${m.desc}</p><div class="s">${st}</div></${on?'a':'div'}>`}).join('');
+if(/iphone|ipad/i.test(navigator.userAgent)&&!navigator.standalone)document.getElementById('ios').hidden=false;
+let dp;addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;document.getElementById('inst').hidden=false});
+document.getElementById('ib').onclick=()=>dp&&dp.prompt();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body></html>

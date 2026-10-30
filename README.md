@@ -1,5 +1,3 @@
-# SSP_terrain
-Hub de fiches de terrain pour missions SSP
 # Fouquet Terrain – hub de terrain
 
 Application web légère pour les relevés de terrain de Fouquet Conseils Environnement. Elle fonctionne sur téléphone, tablette et ordinateur, sans serveur : tout s'exécute dans le navigateur.
