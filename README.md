@@ -1,4 +1,4 @@
-# Fouquet Conseils Environnement – Hub de terrain
+# Fouquet Terrain – hub de terrain
 
 Application web légère pour les relevés de terrain de Fouquet Conseils Environnement. Elle fonctionne sur téléphone, tablette et ordinateur, sans serveur : tout s'exécute dans le navigateur.
 
@@ -65,7 +65,8 @@ GitHub Pages sert le site en HTTPS, condition nécessaire pour la caméra, le GP
 
 ## Points à vérifier avant usage terrain
 
-- **Scan de codes-barres par la caméra** : repose sur l'API `BarcodeDetector`, absente de Safari sur iPhone. Sans elle : saisie manuelle ou douchette Bluetooth. Compatibilité : https://developer.mozilla.org/docs/Web/API/BarcodeDetector
+- **Scan des codes (QR, Code 128, DataMatrix…) par la caméra** : si le navigateur n'a pas l'API native `BarcodeDetector` (cas de tous les navigateurs sur iPhone), l'application charge le lecteur `barcode-detector` (ZXing-C++ en WebAssembly) depuis le CDN jsDelivr, à la première utilisation (réseau requis), puis le service worker le conserve pour le hors ligne. Documentation : https://github.com/Sec-ant/barcode-detector. **À faire** : figer une version exacte dans `BD_URL` (`sol/app.js`) ou copier les fichiers dans le dépôt (`vendor/`) ; à tester sur vos étiquettes réelles (taille, éclairage, distance). Sans lecteur : saisie manuelle ou douchette Bluetooth en mode clavier.
+- **Fond de carte IGN sur l'export** : choisi par projet (Aucun / Orthophoto / Plan IGN), demandé en Lambert-93 au service WMS-raster de la Géoplateforme (`https://data.geopf.fr/wms-r`). Réseau requis à l'export. À vérifier : autorisation CORS du serveur (sinon la carte s'exporte sans fond, avec un message), nom de la couche « Plan IGN », ordre des axes du BBOX, limites d'usage (https://geoservices.ign.fr/usages). La mention « © IGN – Géoplateforme » figure sur la carte.
 - **GPS** : précision d'un téléphone de l'ordre de quelques mètres, affichée dans la fiche. Conversion WGS84 vers Lambert-93 (EPSG:2154), France métropolitaine uniquement. Le Z (NGF) reste en saisie manuelle.
 - **Fiche imprimable, PDF, JPEG** : le partage de fichiers dépend du navigateur ; sinon, utiliser l'aperçu puis Imprimer.
 - Application **non testée sur appareils réels** au moment de la rédaction : faire un essai complet avant une campagne.
