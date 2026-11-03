@@ -8,8 +8,8 @@ Une page d'accueil (le **hub**) donne accès à un module par type de fiche.
 |---|---|---|
 | Sondages de sol | `sol/` | Disponible |
 | Eaux superficielles et sédiments | `eaux-sed/` | Disponible |
+| Eaux souterraines | `eaux-sout/` | Disponible |
 | Fiche de visite | `visite/` | Disponible |
-| Eaux souterraines | – | À venir |
 | Analyse des risques | – | À venir |
 
 ## Structure du dépôt
@@ -21,6 +21,7 @@ sw.js                   Service worker (fonctionnement hors ligne)
 assets/                 Logo et icônes, partagés par tous les modules
 sol/                    Module « Sondages de sol »
 eaux-sed/               Module « Eaux superficielles et sédiments »
+eaux-sout/              Module « Eaux souterraines »
 visite/                 Module « Fiche de visite » (questionnaire de visite de site)
   (chaque module : index.html  app.js  style.css)
 .nojekyll               Désactive Jekyll sur GitHub Pages
@@ -53,7 +54,7 @@ GitHub Pages sert le site en HTTPS, condition nécessaire pour la caméra, le GP
 
 ## Données et sauvegarde
 
-- Les données sont stockées **dans le navigateur de l'appareil**, séparément pour chaque module : `localStorage` pour les fiches (clés `rs1`, `eaux1`, `visite1`), `IndexedDB` pour les photos et, dans le module visite, le croquis. Il n'y a pas de synchronisation entre appareils.
+- Les données sont stockées **dans le navigateur de l'appareil**, séparément pour chaque module : `localStorage` pour les fiches (clés `rs1`, `eaux1`, `esout1`, `visite1`), `IndexedDB` pour les photos et, dans le module visite, le croquis. Il n'y a pas de synchronisation entre appareils.
 - Vider les données du navigateur ou désinstaller l'application **efface les données**.
 - Sauvegarde et transfert : dans chaque module, page Projets → *Partager tout (.json)* ; import sur l'autre appareil avec *Importer un fichier*. Les photos (et le croquis du module visite) ne sont **pas** inclus dans le JSON : utiliser les boutons de partage de l'onglet Export de chaque fiche.
 - Règle de fusion à l'import : la version la plus récente d'une fiche l'emporte (comparaison des horodatages). Vérifier que l'heure des appareils est correcte.
@@ -71,6 +72,7 @@ GitHub Pages sert le site en HTTPS, condition nécessaire pour la caméra, le GP
 - **Fond de carte IGN sur l'export** : choisi par projet (Aucun / Orthophoto / Plan IGN), demandé en Lambert-93 au service WMS-raster de la Géoplateforme (`https://data.geopf.fr/wms-r`). Réseau requis à l'export. À vérifier : autorisation CORS du serveur (sinon la carte s'exporte sans fond, avec un message), nom de la couche « Plan IGN », ordre des axes du BBOX, limites d'usage (https://geoservices.ign.fr/usages). La mention « © IGN – Géoplateforme » figure sur la carte.
 - **Fond IGN sur les plans** (modules `eaux-sed/` et `visite/`) : l'image du fond est affichée directement depuis la Géoplateforme (même service WMS-raster que ci-dessus), sans export canevas. Mêmes points à vérifier : nom des couches (`ORTHOIMAGERY.ORTHOPHOTOS.BDORTHO`, `GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2`), ordre des axes du BBOX, limites d'usage. Sans réseau, le plan s'affiche sans fond.
 - **Météo préremplie** (module `eaux-sed/`) : appel au service Open-Meteo (https://open-meteo.com/en/docs) avec la position GPS : conditions du jour et cumul de pluie sur 3 et 20 jours. **À vérifier** : paramètres de l'API, correspondance des codes météo avec les libellés de la fiche, conditions d'usage pour un usage professionnel. Réseau requis ; sinon saisie manuelle. Les valeurs restent modifiables.
+- **Calculs de purge** (module `eaux-sout/`) : capacité en eau = π × (diamètre/2)² × (PT − NS) ; volume minimum = nombre de volumes × capacité (5 par défaut, repris du modèle maison, champ modifiable) ; volume extrait = durée × débit. **À vérifier** : le nombre de volumes à renouveler et la norme de référence (le modèle indique seulement « norme »), et le repère commun de PT, NS et profondeur de pompage. Les formules du modèle Excel d'origine utilisaient un diamètre fixe de 51,4 mm et π = 3,14 : l'application utilise le diamètre saisi.
 - **Croquis tactile** (module `visite/`) : enregistré en PNG dans IndexedDB de l'appareil ; à tester au doigt et au stylet sur vos appareils.
 - **GPS** : précision d'un téléphone de l'ordre de quelques mètres, affichée dans la fiche. Conversion WGS84 vers Lambert-93 (EPSG:2154), France métropolitaine uniquement. Le Z (NGF) reste en saisie manuelle (l'altitude GPS d'un téléphone est peu fiable).
 - **Fiche imprimable, PDF, JPEG** : le partage de fichiers dépend du navigateur ; sinon, utiliser l'aperçu puis Imprimer.
