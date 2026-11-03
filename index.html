@@ -45,7 +45,7 @@ const MODULES=[
  {titre:'Sondages de sol',icone:'🪨',desc:'Fiches de prélèvement, lithologie, échantillons et codes-barres, photos, GPS, cartes et fiches imprimables.',url:'sol/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('rs1'));return d?`${d.p.length} projet(s) · ${d.s.length} sondage(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
  {titre:'Eaux superficielles et sédiments',icone:'💧',desc:'Fiche de prélèvement : conditions, mesures in-situ, flacons et codes-barres, photos, GPS, météo préremplie.',url:'eaux-sed/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('eaux1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
 {titre:'Eaux souterraines',icone:'🚰',desc:'Prélèvements d’eaux souterraines.',etat:'soon'},
-  {titre:'Fiche de visite',icone:'📋',desc:'Visite de site : observations, installations, sources potentielles.',etat:'soon'},
+  {titre:'Fiche de visite',icone:'📋',desc:'Questionnaire de visite de site : 13 rubriques, annexe de risque, croquis, photos, GPS et carte, fiche imprimable.',url:'visite/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('visite1'));return d?`${d.p.length} projet(s) · ${d.f.length} visite(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
  {titre:'Analyse des risques',icone:'⚠️',desc:'Schéma conceptuel et analyse des risques.',etat:'soon'}
 ];
 document.getElementById('mods').innerHTML=MODULES.map(m=>{
