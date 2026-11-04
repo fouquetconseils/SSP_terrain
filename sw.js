@@ -1,12 +1,16 @@
 /* Service worker : fonctionnement hors ligne.
    À CHAQUE MISE EN LIGNE : incrémenter VERSION, et lister tout nouveau fichier dans SHELL. */
-const VERSION = 'fouquet-terrain-v6';
+const VERSION = 'fouquet-terrain-v9';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest',
   'assets/logo.jpg', 'assets/icon-192.png', 'assets/icon-512.png',
   'sol/', 'sol/index.html', 'sol/app.js', 'sol/style.css',
   'eaux-sed/', 'eaux-sed/index.html', 'eaux-sed/app.js', 'eaux-sed/style.css',
   'visite/', 'visite/index.html', 'visite/app.js', 'visite/style.css',
-  'eaux-sout/', 'eaux-sout/index.html', 'eaux-sout/app.js', 'eaux-sout/style.css'];
+  'eaux-sout/', 'eaux-sout/index.html', 'eaux-sout/app.js', 'eaux-sout/style.css',
+  'gaz-sol/', 'gaz-sol/index.html', 'gaz-sol/app.js', 'gaz-sol/style.css',
+  'air-ambiant/', 'air-ambiant/index.html', 'air-ambiant/app.js', 'air-ambiant/style.css',
+  'analyse-risques/', 'analyse-risques/index.html', 'analyse-risques/app.js', 'analyse-risques/catalogue-ssp.js', 'analyse-risques/style.css',
+  'shared/transfer.js'];
 
 self.addEventListener('install', e => e.waitUntil(
   caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())));

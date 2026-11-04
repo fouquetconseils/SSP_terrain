@@ -38,15 +38,17 @@ footer{max-width:860px;margin:0 auto;padding:8px 16px 28px;font-size:12px;color:
     <div id="ios" hidden style="margin-top:8px">iPhone / iPad : bouton Partager, puis « Sur l’écran d’accueil ».</div>
   </div>
 </main>
-<footer id="ft">Fouquet Conseils Environnement - Fiches Terrain</footer>
+<footer id="ft">Fouquet Terrain</footer>
 <script>
 /* Pour ajouter un module : un objet dans MODULES (+ voir README, section « Ajouter un module »). */
 const MODULES=[
  {titre:'Sondages de sol',icone:'🪨',desc:'Fiches de prélèvement, lithologie, échantillons et codes-barres, photos, GPS, cartes et fiches imprimables.',url:'sol/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('rs1'));return d?`${d.p.length} projet(s) · ${d.s.length} sondage(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
  {titre:'Eaux superficielles et sédiments',icone:'💧',desc:'Fiche de prélèvement : conditions, mesures in-situ, flacons et codes-barres, photos, GPS, météo préremplie.',url:'eaux-sed/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('eaux1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
 {titre:'Eaux souterraines',icone:'🚰',desc:'Fiche de prélèvement : purge et calculs de volumes, suivi des paramètres, flacons et codes-barres, photos, GPS, météo préremplie.',url:'eaux-sout/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('esout1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
+{titre:'Gaz du sol',icone:'🌫️',desc:'Prélèvement de gaz du sol (piézair, canne à gaz) : purge, calibration, volume mort, supports et codes-barres.',url:'gaz-sol/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('gsol1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
+{titre:'Air ambiant',icone:'🏠',desc:'Prélèvement d’air ambiant intérieur ou extérieur, passif ou actif : description du local, PID, supports, pompes.',url:'air-ambiant/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('air1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
   {titre:'Fiche de visite',icone:'📋',desc:'Questionnaire de visite de site : 13 rubriques, annexe de risque, croquis, photos, GPS et carte, fiche imprimable.',url:'visite/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('visite1'));return d?`${d.p.length} projet(s) · ${d.f.length} visite(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
- {titre:'Analyse des risques',icone:'⚠️',desc:'Schéma conceptuel et analyse des risques.',etat:'soon'}
+ {titre:'Analyse de risques',icone:'⚠️',desc:'Fiche de préparation d’intervention – prévention des risques : analyse préalable, inspection commune, risques et mesures, plan des sondages, signatures.',url:'analyse-risques/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('ar1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
 ];
 document.getElementById('mods').innerHTML=MODULES.map(m=>{
   const on=m.etat==='ok',st=on?(m.stats?m.stats():'Disponible'):'À venir';
