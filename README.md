@@ -1,4 +1,4 @@
-# Fouquet Conseils Environnement | Hub de terrain
+# Fouquet Terrain – hub de terrain
 
 Application web légère pour les relevés de terrain de Fouquet Conseils Environnement. Elle fonctionne sur téléphone, tablette et ordinateur, sans serveur : tout s'exécute dans le navigateur.
 
@@ -93,3 +93,10 @@ GitHub Pages sert le site en HTTPS, condition nécessaire pour la caméra, le GP
 ## Licence
 
 Code **propriétaire** : © 2026 Fouquet Conseils Environnement, tous droits réservés. Aucune réutilisation, copie ni modification sans autorisation écrite préalable. Voir le fichier `LICENSE`. Les composants et services tiers (lecteur de codes-barres, Open-Meteo, Géoplateforme IGN) restent soumis à leurs propres conditions.
+
+## Mise à jour et cache hors ligne
+
+- Le service worker (`sw.js`) charge les fichiers de l'application **réseau d'abord** (3 secondes maximum, revalidation forcée) et utilise le cache en secours : une mise en ligne apparaît dès le chargement suivant quand l'appareil est connecté, et l'application reste utilisable hors ligne.
+- **À chaque mise en ligne** : incrémenter `VERSION` dans `sw.js` et lister tout nouveau fichier dans `SHELL` (un fichier absent du dépôt fait échouer l'installation du service worker).
+- Transition depuis l'ancienne stratégie (cache d'abord) : il faut parfois 2 à 3 chargements d'un module après la mise en ligne pour voir la nouvelle version. Le panneau 💾 affiche la version chargée.
+- **Ne pas vider les données du site** dans le navigateur pour forcer une mise à jour : les fiches, photos et croquis sont stockés localement et seraient perdus. Exporter d'abord.
