@@ -1,6 +1,6 @@
 /* Service worker : fonctionnement hors ligne.
    À CHAQUE MISE EN LIGNE : incrémenter VERSION, et lister tout nouveau fichier dans SHELL. */
-const VERSION = 'fouquet-terrain-v10';
+const VERSION = 'fouquet-terrain-v13';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest',
   'assets/logo.jpg', 'assets/icon-192.png', 'assets/icon-512.png',
   'sol/', 'sol/index.html', 'sol/app.js', 'sol/style.css',

@@ -100,3 +100,12 @@ Code **propriétaire** : © 2026 Fouquet Conseils Environnement, tous droits ré
 - **À chaque mise en ligne** : incrémenter `VERSION` dans `sw.js` et lister tout nouveau fichier dans `SHELL` (un fichier absent du dépôt fait échouer l'installation du service worker).
 - Transition depuis l'ancienne stratégie (cache d'abord) : il faut parfois 2 à 3 chargements d'un module après la mise en ligne pour voir la nouvelle version. Le panneau 💾 affiche la version chargée.
 - **Ne pas vider les données du site** dans le navigateur pour forcer une mise à jour : les fiches, photos et croquis sont stockés localement et seraient perdus. Exporter d'abord.
+
+## Fiche de sol : feuille de forage
+
+- La fiche imprimée, PDF ou JPEG du module `sol/` commence par une **feuille de forage** inspirée des fiches ESlog. L'en-tête regroupe les données de la première page de l'ancienne fiche (projet, dossier, commune, localisation, chargé d'affaire, foreur, préleveur, méthode, profondeur, dates et heures, X, Y, Z, météo) et celles d'ESlog (client, adresse, zone investiguée, gestion des cuttings, validé par, analyses), puis le cadre **Conditions de confection de l'échantillon** (confection, préparation, méthode d'échantillonnage, conditionnement, conservation, précisions). Le tableau (profondeur, humidité, coupe, échantillons, analyse, description, PID, observations) occupe une page par tranche de 5 m.
+- Ordre des pages : feuille(s) de forage, détails (échantillonnage, coupe détaillée, échantillons et codes-barres), photographies (9 par page), plan de localisation (sur la dernière page de photos s'il reste de la place, sinon sur une page dédiée).
+- **Humidité** : cinq nuances de bleu (sec, frais, humide, très humide, saturé), déduites des mots saisis dans le champ humidité de la couche.
+- **Niveaux statiques** : les champs restent saisissables dans l'application, mais ne sont pas affichés sur la fiche imprimée.
+- **Couleur de la coupe** : elle vient de la couleur notée dans la description de la couche (à défaut dans les observations) : marron, beige, ocre, jaune, orange, rouille, rouge, rose, gris, noir, blanc, vert, bleu, avec « clair » ou « foncé » pris en compte. **Sans couleur notée, la couche reste blanche** avec le seul motif de sa lithologie (sable, gravier, limon, argile, etc.). Même règle pour la coupe affichée à l'écran et le plan.
+- Nouveaux champs à renseigner : *Client* et *Adresse du site* (projet), *Zone investiguée*, *Gestion des cuttings* et *Validé par* (sondage).
