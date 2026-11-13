@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Fouquet Terrain – Hub</title>
+<title>Fouquet Conseils Environnement | Fiches de terrain</title>
 <meta name="theme-color" content="#1d3557">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="assets/icon-192.png">
@@ -27,7 +27,7 @@ button{font:inherit;background:var(--ac);color:#fff;border:0;border-radius:8px;p
 @media (prefers-color-scheme:dark){button{color:#12161c}}
 footer{max-width:860px;margin:0 auto;padding:8px 16px 28px;font-size:12px;color:var(--mu)}
 </style></head><body>
-<header><img src="assets/logo.jpg" alt="Fouquet Conseils Environnement"><div><h1>Hub de terrain</h1><p>Fouquet Conseils Environnement</p></div></header>
+<header><img src="assets/logo.jpg" alt="Fouquet Conseils Environnement"><div><h1>Fiches de terrain</h1><p>Fouquet Conseils Environnement</p></div></header>
 <main>
   <h2>Modules</h2>
   <div class="g" id="mods"></div>
@@ -38,7 +38,7 @@ footer{max-width:860px;margin:0 auto;padding:8px 16px 28px;font-size:12px;color:
     <div id="ios" hidden style="margin-top:8px">iPhone / iPad : bouton Partager, puis « Sur l’écran d’accueil ».</div>
   </div>
 </main>
-<footer id="ft">Fouquet Conseils Environnement | Fiches de Terrain SSP</footer>
+<footer id="ft">Fouquet Conseils Environnement | Fiches de terrain</footer>
 <script>
 /* Pour ajouter un module : un objet dans MODULES (+ voir README, section « Ajouter un module »). */
 const MODULES=[
@@ -47,6 +47,7 @@ const MODULES=[
 {titre:'Eaux souterraines',icone:'🚰',desc:'Fiche de prélèvement : purge et calculs de volumes, suivi des paramètres, flacons et codes-barres, photos, GPS, météo préremplie.',url:'eaux-sout/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('esout1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
 {titre:'Gaz du sol',icone:'🌫️',desc:'Prélèvement de gaz du sol (piézair, canne à gaz) : purge, calibration, volume mort, supports et codes-barres.',url:'gaz-sol/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('gsol1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
 {titre:'Air ambiant',icone:'🏠',desc:'Prélèvement d’air ambiant intérieur ou extérieur, passif ou actif : description du local, PID, supports, pompes.',url:'air-ambiant/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('air1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
+{titre:'Pose d’ouvrage',icone:'🔩',desc:'Fiche de pose de piézomètre ou de piézair : forage, tubage, crépine, massif et bentonite, protection de tête, coupe technique tracée.',url:'pose-ouvrage/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('pz1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
   {titre:'Fiche de visite',icone:'📋',desc:'Questionnaire de visite de site : 13 rubriques, annexe de risque, croquis, photos, GPS et carte, fiche imprimable.',url:'visite/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('visite1'));return d?`${d.p.length} projet(s) · ${d.f.length} visite(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
  {titre:'Analyse de risques',icone:'⚠️',desc:'Fiche de préparation d’intervention – prévention des risques : analyse préalable, inspection commune, risques et mesures, plan des sondages, signatures.',url:'analyse-risques/',etat:'ok',stats:()=>{try{const d=JSON.parse(localStorage.getItem('ar1'));return d?`${d.p.length} projet(s) · ${d.f.length} fiche(s) sur cet appareil`:'Aucune donnée sur cet appareil'}catch(e){return''}}},
 ];

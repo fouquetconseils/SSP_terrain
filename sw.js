@@ -1,6 +1,6 @@
 /* Service worker : fonctionnement hors ligne.
    À CHAQUE MISE EN LIGNE : incrémenter VERSION, et lister tout nouveau fichier dans SHELL. */
-const VERSION = 'fouquet-terrain-v13';
+const VERSION = 'fouquet-terrain-v19';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest',
   'assets/logo.jpg', 'assets/icon-192.png', 'assets/icon-512.png',
   'sol/', 'sol/index.html', 'sol/app.js', 'sol/style.css',
@@ -10,6 +10,7 @@ const SHELL = ['./', 'index.html', 'manifest.webmanifest',
   'gaz-sol/', 'gaz-sol/index.html', 'gaz-sol/app.js', 'gaz-sol/style.css',
   'air-ambiant/', 'air-ambiant/index.html', 'air-ambiant/app.js', 'air-ambiant/style.css',
   'analyse-risques/', 'analyse-risques/index.html', 'analyse-risques/app.js', 'analyse-risques/catalogue-ssp.js', 'analyse-risques/style.css',
+  'pose-ouvrage/', 'pose-ouvrage/index.html', 'pose-ouvrage/app.js', 'pose-ouvrage/style.css',
   'shared/transfer.js'];
 
 self.addEventListener('install', e => e.waitUntil(

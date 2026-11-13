@@ -1,4 +1,4 @@
-# Fouquet Terrain – hub de terrain
+# FCE | Terrain – fiches de terrain (Fouquet Conseils Environnement)
 
 Application web légère pour les relevés de terrain de Fouquet Conseils Environnement. Elle fonctionne sur téléphone, tablette et ordinateur, sans serveur : tout s'exécute dans le navigateur.
 
@@ -11,6 +11,7 @@ Une page d'accueil (le **hub**) donne accès à un module par type de fiche.
 | Eaux souterraines | `eaux-sout/` | Disponible |
 | Gaz du sol | `gaz-sol/` | Disponible |
 | Air ambiant | `air-ambiant/` | Disponible |
+| Pose d'ouvrage | `pose-ouvrage/` | Disponible |
 | Fiche de visite | `visite/` | Disponible |
 | Analyse de risques | `analyse-risques/` | Disponible |
 
@@ -26,6 +27,7 @@ eaux-sed/               Module « Eaux superficielles et sédiments »
 eaux-sout/              Module « Eaux souterraines »
 gaz-sol/                Module « Gaz du sol »
 air-ambiant/            Module « Air ambiant »
+pose-ouvrage/           Module « Pose d'ouvrage » (piézomètre ou piézair)
 analyse-risques/        Module « Analyse de risques » (fiche de préparation d'intervention)
                         catalogue-ssp.js = textes et risques ; à remplacer pour une autre déclinaison (ex. diagnostic PEMD)
 visite/                 Module « Fiche de visite » (questionnaire de visite de site)
@@ -44,7 +46,7 @@ Première mise en ligne en ligne de commande :
 ```
 git init
 git add .
-git commit -m "Hub de terrain"
+git commit -m "Fiches de terrain"
 git branch -M main
 git remote add origin https://github.com/<compte>/<dépôt>.git
 git push -u origin main
@@ -60,7 +62,7 @@ GitHub Pages sert le site en HTTPS, condition nécessaire pour la caméra, le GP
 
 ## Données et sauvegarde
 
-- Les données sont stockées **dans le navigateur de l'appareil**, séparément pour chaque module : `localStorage` pour les fiches (clés `rs1`, `eaux1`, `esout1`, `gsol1`, `air1`, `ar1`, `visite1`), `IndexedDB` pour les photos et, dans le module visite, le croquis. Il n'y a pas de synchronisation entre appareils.
+- Les données sont stockées **dans le navigateur de l'appareil**, séparément pour chaque module : `localStorage` pour les fiches (clés `rs1`, `eaux1`, `esout1`, `gsol1`, `air1`, `pz1`, `ar1`, `visite1`), `IndexedDB` pour les photos et, dans le module visite, le croquis. Il n'y a pas de synchronisation entre appareils.
 - Vider les données du navigateur ou désinstaller l'application **efface les données**.
 - **Sauvegarde et transfert entre appareils (ordinateur ↔ tablette)** : dans chaque module, le bouton flottant 💾 (en bas à gauche) ouvre le panneau de transfert. *Télécharger* (ordinateur) ou *Partager* (tablette) crée une archive `.zip` contenant les fiches, **les photos, les croquis et les signatures**, pour tout le module, le projet en cours ou la fiche en cours. Sur l'autre appareil : 💾 → *Importer* → choisir l'archive. Le fichier se transmet par mail, cloud (OneDrive, Teams…) ou câble ; il n'y a pas de synchronisation automatique (aucun serveur).
 - Règle de fusion à l'import : la version la plus récente d'une fiche l'emporte, fiche entière (comparaison des horodatages, donc heure des appareils à vérifier) ; les photos s'ajoutent. Une archive d'un autre module est refusée. Éviter de modifier la même fiche sur deux appareils en parallèle.
@@ -71,7 +73,7 @@ GitHub Pages sert le site en HTTPS, condition nécessaire pour la caméra, le GP
 ## Ajouter un module
 
 1. Créer un dossier (ex. `eaux-sed/`) avec `index.html`, `app.js`, `style.css`. Utiliser des chemins relatifs et une clé de stockage propre au module (ex. `localStorage` clé `eaux1`, base IndexedDB `eaux-photos`) ; les modules `eaux-sed/` et `visite/` peuvent servir de base.
-2. Ajouter un lien de retour `<a href="../">← Hub de terrain</a>` et la ligne `<link rel="manifest" href="../manifest.webmanifest">`.
+2. Ajouter un lien de retour `<a href="../">← Fiches de terrain</a>` et la ligne `<link rel="manifest" href="../manifest.webmanifest">`.
 3. Dans `index.html` (racine) : passer `etat:'soon'` à `etat:'ok'` et renseigner `url:'eaux-sed/'`.
 4. Dans `sw.js` : ajouter les fichiers du module dans `SHELL` et **incrémenter `VERSION`**.
 
@@ -103,9 +105,25 @@ Code **propriétaire** : © 2026 Fouquet Conseils Environnement, tous droits ré
 
 ## Fiche de sol : feuille de forage
 
-- La fiche imprimée, PDF ou JPEG du module `sol/` commence par une **feuille de forage** inspirée des fiches ESlog. L'en-tête regroupe les données de la première page de l'ancienne fiche (projet, dossier, commune, localisation, chargé d'affaire, foreur, préleveur, méthode, profondeur, dates et heures, X, Y, Z, météo) et celles d'ESlog (client, adresse, zone investiguée, gestion des cuttings, validé par, analyses), puis le cadre **Conditions de confection de l'échantillon** (confection, préparation, méthode d'échantillonnage, conditionnement, conservation, précisions). Le tableau (profondeur, humidité, coupe, échantillons, analyse, description, PID, observations) occupe une page par tranche de 5 m.
-- Ordre des pages : feuille(s) de forage, détails (échantillonnage, coupe détaillée, échantillons et codes-barres), photographies (9 par page), plan de localisation (sur la dernière page de photos s'il reste de la place, sinon sur une page dédiée).
+- La fiche imprimée, PDF ou JPEG du module `sol/` commence par une **feuille de forage** inspirée des fiches ESlog. L'en-tête regroupe les données de la première page de l'ancienne fiche (projet, dossier, commune, localisation, chargé d'affaire, foreur, préleveur, méthode, profondeur, dates et heures, X, Y, Z, météo) et celles d'ESlog (client, adresse, zone investiguée, gestion des cuttings, validé par, analyses), puis le cadre **Conditions de confection de l'échantillon** (confection, préparation, méthode d'échantillonnage, conditionnement, conservation, précisions). Le tableau (profondeur, humidité, coupe, échantillons, analyse, description, PID, observations) a une **échelle adaptée à la profondeur atteinte** : la page couvre la profondeur utile plus une marge de 0,2 m (arrondie au 0,5 m supérieur, de 1 à 5 m par page) ; au-delà de 5 m, la profondeur est répartie à égalité sur plusieurs pages. La graduation passe à 0,1 m quand l'échelle est grande.
+- Ordre des pages : feuille(s) de forage, détails (informations complémentaires, échantillons et codes-barres ; la coupe n'y est plus répétée), photographies (9 par page), plan de localisation (sur la dernière page de photos s'il reste de la place, sinon sur une page dédiée).
 - **Humidité** : cinq nuances de bleu (sec, frais, humide, très humide, saturé), déduites des mots saisis dans le champ humidité de la couche.
 - **Niveaux statiques** : les champs restent saisissables dans l'application, mais ne sont pas affichés sur la fiche imprimée.
 - **Couleur de la coupe** : elle vient de la couleur notée dans la description de la couche (à défaut dans les observations) : marron, beige, ocre, jaune, orange, rouille, rouge, rose, gris, noir, blanc, vert, bleu, avec « clair » ou « foncé » pris en compte. **Sans couleur notée, la couche reste blanche** avec le seul motif de sa lithologie (sable, gravier, limon, argile, etc.). Même règle pour la coupe affichée à l'écran et le plan.
 - Nouveaux champs à renseigner : *Client* et *Adresse du site* (projet), *Zone investiguée*, *Gestion des cuttings* et *Validé par* (sondage).
+
+## Pose d'ouvrage (piézomètre ou piézair)
+
+- Un seul module, avec choix du type : les champs propres au piézair (tuyau de liaison, tête d'ouvrage, test d'étanchéité) ou au piézomètre (niveau statique, développement) s'affichent selon le type.
+- **Pas de modèle d'origine** : les listes (matériaux, matériaux annulaires, capots, fermetures, méthodes) sont des valeurs courantes proposées par défaut ; à compléter dans `pose-ouvrage/app.js` (constantes `MAT`, `ANN` et listes de `SP`).
+- Coupe technique de l'ouvrage tracée à partir des saisies (profondeurs à l'échelle, largeurs schématiques), mise à jour à chaque saisie ; présentation inspirée de la colonne « Well installation » des fiches ESlog.
+- **Lithologie associée** : onglet Forage, choisir un sondage du module « Sondages de sol » (lu dans le même navigateur) puis *Importer la lithologie* : la coupe affiche alors la colonne lithologique (couleur issue de la description, motif de la lithologie) et les descriptions, à gauche de l'ouvrage. La lithologie est **copiée dans la fiche** (elle suit la fiche à l'export et à l'import) ; réimporter pour la mettre à jour après modification du sondage. Si le module sol est vide sur l'appareil (autre navigateur ou autre appareil), importer d'abord sa sauvegarde 💾.
+- Calculs : volume théorique de chaque couche annulaire = π/4 × (D foré² − D ext. tubage²) × épaisseur, hors foisonnement ; longueur de crépine, tubage plein, fond du tube.
+- Contrôles indicatifs (à valider avec votre procédure) : diamètre foré supérieur au diamètre du tubage, crépine dans le forage, vides ou chevauchements entre couches, dernière couche au fond du forage, massif filtrant couvrant la crépine.
+- Les obligations de déclaration de l'ouvrage (BSS…) et le référentiel de pose (par exemple FD X31-614) n'ont **pas été vérifiés** : à confirmer.
+
+## Nom de l'application
+
+- Nom complet : **Fouquet Conseils Environnement | Fiches de terrain** (manifeste, titre du hub, pied de page).
+- Nom court : **FCE | Terrain** (manifeste, onglets des modules). Une application déjà installée sur l'écran d'accueil peut garder l'ancien nom jusqu'à sa réinstallation.
+- Le préfixe interne du cache (`fouquet-terrain-vNN` dans `sw.js`) n'est pas visible par les utilisateurs et reste inchangé.
