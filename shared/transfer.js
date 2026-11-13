@@ -1,4 +1,4 @@
-/* Fouquet Terrain – sauvegarde et transfert entre appareils (commun à tous les modules).
+/* FCE | Terrain – sauvegarde et transfert entre appareils (commun à tous les modules).
    Archive .zip = data.json + media/ (photos, croquis, signatures). Aucun serveur : fichier à transmettre soi-même (mail, cloud, câble). */
 (()=>{
 const enc=new TextEncoder(),dec=new TextDecoder(),q=location.pathname.split('/').filter(Boolean);if(q[q.length-1]=='index.html')q.pop();const MOD=q[q.length-1]||'app';
