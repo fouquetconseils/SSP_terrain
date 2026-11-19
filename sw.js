@@ -1,8 +1,8 @@
 /* Service worker : fonctionnement hors ligne.
    À CHAQUE MISE EN LIGNE : incrémenter VERSION, et lister tout nouveau fichier dans SHELL. */
-const VERSION = 'fouquet-terrain-v20';
+const VERSION = 'fouquet-terrain-v21';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest',
-  'assets/logo.jpg', 'assets/icon-192.png', 'assets/icon-512.png',
+  'assets/logo.jpg', 'assets/fce-icon-180.png', 'assets/fce-icon-192.png', 'assets/fce-icon-512.png',
   'sol/', 'sol/index.html', 'sol/app.js', 'sol/style.css',
   'eaux-sed/', 'eaux-sed/index.html', 'eaux-sed/app.js', 'eaux-sed/style.css',
   'visite/', 'visite/index.html', 'visite/app.js', 'visite/style.css',
@@ -27,7 +27,7 @@ self.addEventListener('fetch', e => {
   const r = e.request, u = new URL(r.url);
   const OK = [location.origin, 'https://fastly.jsdelivr.net', 'https://cdn.jsdelivr.net'];
   if (r.method !== 'GET' || !OK.includes(u.origin)) return;
-  if (u.origin === location.origin && /\/(assets\/(icon-|apple-touch)|manifest\.webmanifest)/.test(u.pathname)) return;
+  if (u.origin === location.origin && /\/(assets\/(icon-|fce-icon-|apple-touch)|manifest\.webmanifest)/.test(u.pathname)) return;
   e.respondWith((async () => {
     const c = await caches.open(VERSION), hit = await c.match(r);
     if (u.origin !== location.origin) {

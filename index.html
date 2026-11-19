@@ -4,8 +4,8 @@
 <title>Fouquet Conseils Environnement | Fiches de terrain</title>
 <meta name="theme-color" content="#1d3557">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="assets/icon-192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="icon" href="assets/fce-icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/fce-icon-180.png">
 <meta name="apple-mobile-web-app-title" content="FCE | Terrain">
 <style>
 :root{--bg:#f4f6f9;--cd:#fff;--tx:#1b2430;--mu:#66707f;--ac:#1d3557;--bd:#d8dee8;--ok:#2f7d4f;box-sizing:border-box}
@@ -59,5 +59,13 @@ if(/iphone|ipad/i.test(navigator.userAgent)&&!navigator.standalone)document.getE
 let dp;addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;document.getElementById('inst').hidden=false});
 document.getElementById('ib').onclick=()=>dp&&dp.prompt();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+<script>
+/* Diagnostic (ouvrir index.html?diag=1) : version chargée, service worker, icônes et manifeste */
+if(/[?&]diag\b/.test(location.search)){const d=document.createElement('div');d.className='info';d.style.margin='12px 0';d.innerHTML='<b>Diagnostic</b><div id="dg">Mesures en cours…</div>';(document.querySelector('main')||document.body).appendChild(d);
+(async()=>{const L=[];try{L.push('Version : '+(await caches.keys()).join(', '))}catch(e){L.push('Version : cache indisponible')}
+L.push('Service worker : '+(navigator.serviceWorker&&navigator.serviceWorker.controller?'actif':'non actif'));
+for(const u of['assets/fce-icon-180.png','assets/fce-icon-192.png','assets/fce-icon-512.png','manifest.webmanifest']){try{const r=await fetch(u,{cache:'no-store'}),b=await r.blob();L.push(u+' : '+r.status+', '+(r.headers.get('content-type')||'type inconnu')+', '+b.size+' octets')}catch(e){L.push(u+' : ÉCHEC ('+e.message+')')}}
+document.getElementById('dg').innerHTML=L.map(x=>'<div>'+x+'</div>').join('')+'<div style="margin-top:8px">Icône de l’écran d’accueil : <img src="assets/fce-icon-180.png" width="90" height="90" alt="icône absente" style="vertical-align:middle;border-radius:20px;border:1px solid var(--bd)"></div>'})()}
 </script>
 </body></html>

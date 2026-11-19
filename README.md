@@ -127,3 +127,9 @@ Code **propriétaire** : © 2026 Fouquet Conseils Environnement, tous droits ré
 - Nom complet : **Fouquet Conseils Environnement | Fiches de terrain** (manifeste, titre du hub, pied de page).
 - Nom court : **FCE | Terrain** (manifeste, onglets des modules). Une application déjà installée sur l'écran d'accueil peut garder l'ancien nom jusqu'à sa réinstallation.
 - Le préfixe interne du cache (`fouquet-terrain-vNN` dans `sw.js`) n'est pas visible par les utilisateurs et reste inchangé.
+
+## Icône de l'écran d'accueil et diagnostic
+
+- Icônes : `assets/fce-icon-180.png` (iPhone, déclarée par `apple-touch-icon`), `fce-icon-192.png` et `fce-icon-512.png` (manifeste). Les noms ont été changés pour forcer un nouveau téléchargement par les appareils qui auraient mémorisé un échec ; les anciens fichiers `icon-192.png`, `icon-512.png` et `logo.jpg` restent dans le dépôt.
+- Le service worker n'intercepte ni les icônes ni le manifeste (le navigateur les charge directement).
+- **Diagnostic** : ouvrir `index.html?diag=1` (à la suite de l'adresse du site) affiche la version chargée, l'état du service worker, le statut des icônes et du manifeste, et l'icône elle-même.
